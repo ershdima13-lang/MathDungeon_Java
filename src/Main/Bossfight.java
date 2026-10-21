@@ -8,7 +8,8 @@ public class Bossfight {
 
     private final List<Abilities.Ability> abilities = List.of(
             new Abilities.BasicDamageAbility("Ударить мечом", "\uD83D\uDDE1️", 0),
-            new Abilities.HealAbility("Восстановить магией злоровье", "✨", 3)
+            new Abilities.HealAbility("Восстановить магией злоровье", "✨", 3),
+            new Abilities.StrongDamageAbility("Ударить сильно", "", 5)
     );
 
     public void start(Board board)
@@ -34,7 +35,6 @@ public class Bossfight {
     private void turn()
     {
         getPlayerInput();
-        for (Abilities.Ability ability : abilities) ability.update();
     }
 
     private void displayOptions()
@@ -54,6 +54,7 @@ public class Bossfight {
             int input = Main.in.nextInt() - 1;
             if (input >= 0 && input < abilities.size())
             {
+                for (Abilities.Ability ability : abilities) ability.update();
                 abilities.get(input).tryUse(this);
                 return;
             } else {

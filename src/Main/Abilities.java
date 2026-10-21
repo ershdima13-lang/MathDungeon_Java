@@ -86,4 +86,25 @@ public class Abilities {
             bossfight.healPlayer(heal);
         }
     }
+
+    public static class StrongDamageAbility extends Ability {
+
+        public StrongDamageAbility(String name, String icon, int cooldown) {
+            super(name, icon, cooldown);
+            challenges = List.of(
+                    () -> new Challenges.SubtractionChallenge().get(icon, 10, 300),
+                    () -> new Challenges.DivisionChallenge().get(icon, 15, 20),
+                    () -> new Challenges.SqrtChallenge().get(icon, 15, 20)
+            );
+        }
+
+        @Override
+        protected void use(Bossfight bossfight) {
+            if (Main.random.nextBoolean())
+            {
+                int dmg = Main.random.nextInt(15, 20);
+                bossfight.damageDragon(dmg);
+            } else System.out.println("Вы промахнулись! \uD83D\uDCA2");
+        }
+    }
 }
