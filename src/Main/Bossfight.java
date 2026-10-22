@@ -14,12 +14,12 @@ public class Bossfight {
     private final List<Abilities.Ability> abilities = List.of(
             new Abilities.BasicDamageAbility("Ударить мечом", "\uD83D\uDDE1️", 0),
             new Abilities.HealAbility("Восстановить магией здоровье", "✨", 3),
-            new Abilities.StrongDamageAbility("Ударить сильно", "⚔️", 5)
+            new Abilities.StrongDamageAbility("Ударить мечом очень сильно", "⚔️", 5)
     );
 
     public void start()
     {
-        System.out.println("Вы заходите в замок и видете паращего в небе дракона. Сразите его!");
+        System.out.println("Вы заходите в замок и видите паращего в небе дракона. Сразите его!");
         playerHealth = player.getHealth() * 20;
         while (turn());
     }
