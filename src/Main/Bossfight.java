@@ -19,7 +19,7 @@ public class Bossfight {
 
     public void start()
     {
-        System.out.println("Вы заходите в замок. Вас встречает уже знакомый Вам дракон. Сразите его!");
+        System.out.println("Вы заходите в замок и видете паращего в небе дракона. Сразите его!");
         playerHealth = player.getHealth() * 20;
         while (turn());
     }
