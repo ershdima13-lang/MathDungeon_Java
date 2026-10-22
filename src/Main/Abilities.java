@@ -28,17 +28,18 @@ public class Abilities {
             return icon;
         }
 
-        public void tryUse(Bossfight bossfight) {
+        public Boolean tryUse(Bossfight bossfight) {
             if (currentCooldown > 0)
             {
-                System.out.println("Способность на перезарядке! (" + currentCooldown + ")");
-                return;
+                System.out.println(STR."Способность на перезарядке! (\{currentCooldown})");
+                return false;
             }
             currentCooldown = cooldown + 1;
             if (challenge()) {
                 use(bossfight);
             }
             else System.out.println("У Вас не вышло использовать эту способность :(");
+            return true;
         }
 
         public void update()
@@ -57,15 +58,15 @@ public class Abilities {
         public BasicDamageAbility(String name, String icon, int cooldown) {
             super(name, icon, cooldown);
             challenges = List.of(
-                    () -> new Challenges.AdditionChallenge().get(icon, 1, 10),
-                    () -> new Challenges.SubtractionChallenge().get(icon, 10, 20),
-                    () -> new Challenges.MultiplicationChallenge().get(icon, 1, 5)
+                    () -> new Challenges.AdditionChallenge().get(icon, 5 * Main.board.getDifficulty(), 10 * Main.board.getDifficulty()),
+                    () -> new Challenges.SubtractionChallenge().get(icon, 5 * Main.board.getDifficulty() , 15 * Main.board.getDifficulty()),
+                    () -> new Challenges.MultiplicationChallenge().get(icon, 2 * Main.board.getDifficulty(), 5 * Main.board.getDifficulty())
             );
         }
 
         @Override
         protected void use(Bossfight bossfight) {
-            int dmg = Main.random.nextInt(10, 15);
+            int dmg = Main.random.nextInt(8, 12);
             bossfight.damageDragon(dmg);
         }
     }
@@ -74,15 +75,15 @@ public class Abilities {
         public HealAbility(String name, String icon, int cooldown) {
             super(name, icon, cooldown);
             challenges = List.of(
-                    () -> new Challenges.SubtractionChallenge().get(icon, 20, 100),
-                    () -> new Challenges.MultiplicationChallenge().get(icon, 5, 10),
-                    () -> new Challenges.DivisionChallenge().get(icon, 5, 10)
+                    () -> new Challenges.SubtractionChallenge().get(icon, Main.board.getDifficulty() * 10, Main.board.getDifficulty() * 20),
+                    () -> new Challenges.MultiplicationChallenge().get(icon, 3 + Main.board.getDifficulty() * 3, 5 + Main.board.getDifficulty() * 3),
+                    () -> new Challenges.DivisionChallenge().get(icon, Main.board.getDifficulty() * 5, Main.board.getDifficulty() * 10)
             );
         }
 
         @Override
         protected void use(Bossfight bossfight) {
-            int heal = Main.random.nextInt(5, 10);
+            int heal = Main.random.nextInt(8, 12);
             bossfight.healPlayer(heal);
         }
     }
@@ -92,15 +93,15 @@ public class Abilities {
         public StrongDamageAbility(String name, String icon, int cooldown) {
             super(name, icon, cooldown);
             challenges = List.of(
-                    () -> new Challenges.SubtractionChallenge().get(icon, 10, 300),
-                    () -> new Challenges.DivisionChallenge().get(icon, 15, 20),
-                    () -> new Challenges.SqrtChallenge().get(icon, 15, 20)
+                    () -> new Challenges.SubtractionChallenge().get(icon, 10, Main.board.getDifficulty() * 50),
+                    () -> new Challenges.DivisionChallenge().get(icon, 10 + Main.board.getDifficulty() * 5, 10 + Main.board.getDifficulty() * 8),
+                    () -> new Challenges.SqrtChallenge().get(icon, 5 + Main.board.getDifficulty() * 3, Main.board.getDifficulty() * 8)
             );
         }
 
         @Override
         protected void use(Bossfight bossfight) {
-            if (Main.random.nextBoolean())
+            if (Main.random.nextInt(1,3) != 1)
             {
                 int dmg = Main.random.nextInt(15, 20);
                 bossfight.damageDragon(dmg);

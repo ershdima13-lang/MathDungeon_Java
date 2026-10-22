@@ -20,8 +20,9 @@ public class BigMonster extends Monster {
     public Boolean challengePlayer()
     {
         Boolean success = super.challengePlayer();
-        if (!success) Main.playerHealth -= 2;
-        else Main.playerHealth += 1;
+        System.out.println(Main.board.getPlayer());
+        if (!success) Main.board.getPlayer().damage(2);
+        else Main.board.getPlayer().heal(1);
         return success;
     }
 }

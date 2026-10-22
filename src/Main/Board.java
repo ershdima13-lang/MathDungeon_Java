@@ -9,22 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-    int step = 0;
-    int size;
+    private int step = 0;
+    private final int size;
+    private final int difficulty;
 
-    int difficulty;
-
-    Entity castle;
-    Player player;
-    List<Entity> entities;
+    private final Entity castle;
+    private final Player player;
+    private final List<Entity> entities;
 
     public Board()
     {
         System.out.print("Введите сложность (1 - 3): ");
         difficulty = Math.clamp(Main.in.nextInt(), 1, 3);
-        System.out.println("Сложность: " + difficulty + "\n");
+        System.out.println(STR."Сложность: \{difficulty}\n");
 
-        size = 3 + (difficulty - 1) * 2;
+        size = difficulty + 3;
         player = new Player(Main.random.nextInt(1, size), size, "\uD83E\uDDD9");
         castle = new Entity(Main.random.nextInt(1, size), 1, "\uD83C\uDFF0");
         entities = new ArrayList<>(List.of(player, castle));
@@ -55,6 +54,14 @@ public class Board {
         return difficulty;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Entity getCastle() {
+        return castle;
+    }
+
     public void turn()
     {
         step++;
@@ -62,12 +69,6 @@ public class Board {
         displayStats();
         handlePlayerMovement();
     }
-
-    public void bossFight()
-    {
-        new Bossfight().start(this);
-    }
-
     private Boolean isAnyoneAtPos(int x, int y)
     {
         for (Entity entity : entities)
@@ -119,12 +120,12 @@ public class Board {
                 break;
             }
         }
-        System.out.print(tile + " ");
+        System.out.print(STR."\{tile} ");
     }
 
     private void displayStats()
     {
-        System.out.println("Жизней: " + "❤️".repeat(player.getHealth()) + "\nХод: " + step + ", X: " + player.getX() + ", Y: " + player.getY());
+        System.out.println(STR."Жизней: \{"❤️".repeat(player.getHealth())}\nХод: \{step}, X: \{player.getX()}, Y: \{player.getY()}");
     }
 
     private void handlePlayerMovement()

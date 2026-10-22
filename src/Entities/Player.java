@@ -16,4 +16,9 @@ public class Player extends Entity {
         health -= dmg;
         if (health < 0) health = 0;
     }
+
+    public void heal(int amount)
+    {
+        health += amount;
+    }
 }
