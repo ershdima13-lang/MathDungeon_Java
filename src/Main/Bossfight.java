@@ -21,7 +21,9 @@ public class Bossfight {
     {
         System.out.println("Вы заходите в замок и видите паращего в небе дракона. Сразите его!");
         playerHealth = player.getHealth() * 20;
-        while (turn());
+        while (true) {
+            if (!turn()) break;
+        }
     }
 
     public void damageDragon(int dmg)
