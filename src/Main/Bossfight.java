@@ -71,7 +71,7 @@ public class Bossfight {
 
     private void displayStats()
     {
-        System.out.println(STR."Ваше здоровье: \{playerHealth} (\{"❤️".repeat(playerHealth / 20)})");
+        System.out.println(STR."Ваше здоровье: \{playerHealth} (\{"❤️".repeat((int) Math.ceil((double) playerHealth / 20))})");
         System.out.println(STR."Здоровье дракона: \{dragonHealth} (\{"❤️".repeat((int) Math.ceil(((double) dragonHealth / dragonMaxHealth) * 5f))})");
     }
 
